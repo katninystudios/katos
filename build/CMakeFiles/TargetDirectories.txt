@@ -1,4 +1,0 @@
-D:/katos/build/CMakeFiles/bootloader.dir
-D:/katos/build/CMakeFiles/run.dir
-D:/katos/build/CMakeFiles/ALL_BUILD.dir
-D:/katos/build/CMakeFiles/ZERO_CHECK.dir
