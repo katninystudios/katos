@@ -1,5 +1,5 @@
 name: Suggestion
-description: "File a report for a bug/issue inside of Nazi Zombies: Portable"
+description: "File a suggestion for KatOS"
 title: "[Bug]: "
 labels: ["bug"]
 body:
