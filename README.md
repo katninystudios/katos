@@ -25,9 +25,7 @@ katniny
 katniny
 
 ### Open Source Software
-- [Arch Linux](https://archlinux.org/)
-- [archiso](https://github.com/archlinux/archiso)
-- [Cinnamon](https://github.com/linuxmint/cinnamon)
+TBA
 
 ## KatOS Insiders
 Try KatOS early! Join our Discord server to try early access versions of KatOS and provide feedback.
