@@ -1,0 +1,58 @@
+name: Issue
+description: "File a report for a bug/issue inside of KatOS"
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to help us improve KatOS! Please note that these tickets are to be treated seriously, any content deemed disrespectful, non-serious, or does not adequately follow the steps below will be immediately closed and potentially removed.
+
+        This is an English-only form. If you do not speak English, please use Google Translate or similar to translate into English.
+  - type: dropdown
+    id: model
+    attributes:
+      label: Architecture
+      description: "Please select the architecture that your download of KatOS was. If you're unsure, select x86_64."
+      multiple: true
+      options:
+          - x86_64
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: KatOS Version
+      description: "Enter the version of KatOS you were using. If you're unsure, go onto your system, search for **KatOS Version** and put the version here."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Download Source
+      description: "Enter the source you used to download KatOS. Only official sources will be acknowledged."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: "Provide a description of the issue you are reporting."
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: "Step-by-step process on how to reproduce the issue. Be short and to the point. If you're unsure, leave this blank."
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Verification of Submission
+      description: Verify that you have selected options above and filled out request properly and in full. 
+      options:
+        - label: I agree that I properly filled out the items listed above. I understand an issue may be closed if process is not properly followed.
+          required: true
