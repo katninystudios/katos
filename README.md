@@ -15,7 +15,10 @@ This is the main hub for KatOS, a fast, private, user-friendly operating system.
 **WILL BE AVAILABLE AT https://katos.katniny.lol/ BUT NOT YET AVAILABLE!!**
 
 ## GitHub Breakdown
-Coming Soon!
+> [!NOTE]
+> KatOS is a major work-in-progress and as such, this breakdown is also a work-in-progress.
+- katos (you're here!)
+    - The build system for KatOS itself - builds the base OS.
 
 ## Credits & Open Source Software
 ### Programming
@@ -25,7 +28,8 @@ katniny
 katniny
 
 ### Open Source Software
-TBD
+- [Ubuntu](https://ubuntu.com/)
+    - The base for KatOS, thanks to it being stable, easy to base on, and more. 
 
 ## KatOS Insiders
 Try KatOS early! Join our Discord server to try early access versions of KatOS and provide feedback.

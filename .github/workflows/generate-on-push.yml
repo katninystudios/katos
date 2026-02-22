@@ -1,0 +1,36 @@
+name: Build KatOS
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - "*"
+    paths:
+      - "src/**"
+  pull_request:
+    branches:
+      - main
+  
+jobs:
+  build-katos:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./src
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debootstrap genisoimage schroot wget tar mount rsync
+      
+      - name: Run bash file
+        run: |
+          chmod +x build-katos.sh
+          ./build-katos.sh
