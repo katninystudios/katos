@@ -9,3 +9,5 @@ We use many dependencies to build KatOS, as it makes my job a lot easier. Run `s
 
 ## 2. Run the build file
 KatOS' build process is entirely automated, making it super easy to reproduce (and run inside our GitHub Workflow). In your terminal, run `cd src && ./build-katos.sh` and it should just work!
+
+KatOS will get spit out to `src/katos.iso`.
