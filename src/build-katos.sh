@@ -10,67 +10,60 @@ else
 fi
 
 # config for KatOS
-DISTRO="noble" # please use LTS unless you're build KatOS bleeding edge!
-ARCH="amd64" # amd64 is our only supported target at the moment. we may support ARM in the future
-IMAGE_DIR="$PWD/katos-build"
-ISO_OUTPUT="$PWD/katos.iso"
-HOSTNAME="katos"
-USERNAME="katos"
+PROFILE_DIR="katos-profile"
+OUT_DIR="out"
+WORK_DIR="work"
 
-# prepare directories
-rm -rf "$IMAGE_DIR"
-mkdir -p "$IMAGE_DIR"
+# make sure the directories are empty to avoid conflicts
+#
+# FIXME: theres probably a less nuclear option to do this so we can use cache
+# and not build from zero each time
+echo "Getting KatOS ready to build..."
+sudo rm -rf "$PROFILE_DIR"
+sudo rm -rf "$OUT_DIR"
+sudo rm -rf "$WORK_DIR"
 
-# bootstrap minimal ubuntu
-sudo debootstrap --arch=$ARCH $DISTRO "$IMAGE_DIR" https://archive.ubuntu.com/ubuntu/
+# then, recreate the profile dir with arch's releng
+echo "Creating profile for KatOS..."
+cp -r /usr/share/archiso/configs/releng "$PROFILE_DIR"
 
-# mount special filesystems for chroot
-sudo mount --bind /dev "$IMAGE_DIR/dev"
-sudo mount --bind /dev/pts "$IMAGE_DIR/dev/pts"
-sudo mount -t proc /proc "$IMAGE_DIR/proc"
-sudo mount -t sysfs /sys "$IMAGE_DIR/sys"
-sudo mount -t tmpfs tmp "$IMAGE_DIR/tmp"
+# update iso label
+echo "Updating ISO label..."
+sed -i 's/iso_name="archlinux"/iso_name="katos"/g' \
+    "$PROFILE_DIR/profiledef.sh"
 
-# chroot into the new system and configure
-sudo chroot "$IMAGE_DIR" /bin/bash -c "
-set -e
-export DEBIAN_FRONTEND=noninteractive
+sed -i 's/iso_label="ARCH_.*/iso_label="KATOS"/g' \
+    "$PROFILE_DIR/profiledef.sh"
 
-# hostname
-echo '$HOSTNAME' > /etc/hostname
+# add custom packages to be installed in the live iso
+#echo "Getting packages ready for install..."
+#cat >> "$PROFILE_DIR/packages.x86_64" << EOF
+#
+# packages that katos will install
+#git
+#fastfetch
+#networkmanager
+#base-devel
 
-# locales
-echo 'LANG=C.UTF-8' > /etc/default/locale
-apt-get update
-apt-get install -y --no-install-recommends linux-image-generic linux-headers-generic grub-pc sudo bash-completion vim systemd-sysv
+# we want the lts linux kernel for stability!
+#linux-lts
+#EOF
 
-# user
-useradd -m -s /bin/bash $USERNAME
-echo '$USERNAME:password' | chpasswd
-adduser $USERNAME sudo
+# create directory for custom executables inside the live system
+# anything here becomes available at /usr/local/bin on boot
+echo "Setting up directory for custom apps..."
+mkdir -p "$PROFILE_DIR/airootfs/usr/local/bin"
 
-# grub config
-mkdir -p /boot/grub
-cat > /boot/grub/grub.cfg << 'EOF'
-set default=0
-set timeout=5
+# copy over our patches to the airootfs
+echo "Copying patches to airootfs..."
+mkdir -p "$PROFILE_DIR/airootfs" # directory should exist... just in case, check!
+cp -r patch/. "$PROFILE_DIR"
 
-menuentry "KatOS" {
-    linux /boot/vmlinuz root=/dev/sr0 quiet
-    initrd /boot/initrd.img
-}
-EOF
-"
-
-# cleanup mounts
-sudo umount -lf "$IMAGE_DIR/dev/pts"
-sudo umount -lf "$IMAGE_DIR/dev"
-sudo umount -lf "$IMAGE_DIR/proc"
-sudo umount -lf "$IMAGE_DIR/sys"
-sudo umount -lf "$IMAGE_DIR/tmp"
-
-# create ISO
-sudo grub-mkrescue -o "$ISO_OUTPUT" "$IMAGE_DIR"
+# start iso build process
+echo "Building ISO..."
+sudo mkarchiso -v -w "$WORK_DIR" -o "$OUT_DIR" "$PROFILE_DIR"
 
 # done!
-echo "KatOS ISO built to $ISO_OUTPUT"
+echo ""
+echo "Done!"
+echo "KatOS was built to $OUT_DIR"

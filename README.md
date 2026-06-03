@@ -12,7 +12,7 @@ This is the main hub for KatOS, a fast, private, user-friendly operating system.
 - Resolution: To Be Discovered
 
 ## Website
-**WILL BE AVAILABLE AT https://katos.katniny.lol/ BUT NOT YET AVAILABLE!!**
+**WILL BE AVAILABLE AT https://katos.katniny.com/ BUT NOT YET AVAILABLE!!**
 
 ## GitHub Breakdown
 > [!NOTE]
@@ -28,10 +28,12 @@ katniny
 katniny
 
 ### Open Source Software
-- [Ubuntu](https://ubuntu.com/)
-    - The base for KatOS, thanks to it being stable, easy to base on, and more. 
+- [Arch Linux](https://archlinux.org/)
+    - The base system for KatOS.
 
 ## KatOS Insiders
+> [!NOTE]
+> While you can download our pre-built ISOs from the GitHub and open issues here for feedback/bug reports, the Discord is recommended to catch up on what changed, what I'd like tested, and more.
 Try KatOS early! Join our Discord server to try early access versions of KatOS and provide feedback.
 
 https://discord.gg/GGnSWQG3US

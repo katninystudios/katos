@@ -1,0 +1,12 @@
+NAME="KatOS"
+PRETTY_NAME="KatOS"
+ID=katos
+VERSION="1.0.0"
+VERSION_ID="1.0.0"
+ANSI_COLOR="38;2;255;0;180"
+HOME_URL="https://katos.katniny.com/"
+DOCUMENTATION_URL="https://katos.katniny.com/docs"
+SUPPORT_URL="https://katos.katniny.com/support"
+BUG_REPORT_URL="https://github.com/katninystudios/katos/issues"
+PRIVACY_POLICY_URL="https://katos.katniny.lol/legal/privacy-policy"
+LOGO=katos-logo
