@@ -136,3 +136,4 @@ networkmanager
 base-devel
 # make sure linux is REMOVED since we want linux-lts for stability
 linux-lts
+plymouth

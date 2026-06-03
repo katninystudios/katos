@@ -35,20 +35,6 @@ sed -i 's/iso_name="archlinux"/iso_name="katos"/g' \
 sed -i 's/iso_label="ARCH_.*/iso_label="KATOS"/g' \
     "$PROFILE_DIR/profiledef.sh"
 
-# add custom packages to be installed in the live iso
-#echo "Getting packages ready for install..."
-#cat >> "$PROFILE_DIR/packages.x86_64" << EOF
-#
-# packages that katos will install
-#git
-#fastfetch
-#networkmanager
-#base-devel
-
-# we want the lts linux kernel for stability!
-#linux-lts
-#EOF
-
 # create directory for custom executables inside the live system
 # anything here becomes available at /usr/local/bin on boot
 echo "Setting up directory for custom apps..."
@@ -58,6 +44,16 @@ mkdir -p "$PROFILE_DIR/airootfs/usr/local/bin"
 echo "Copying patches to airootfs..."
 mkdir -p "$PROFILE_DIR/airootfs" # directory should exist... just in case, check!
 cp -r patch/. "$PROFILE_DIR"
+
+# set our plymouth theme as the default
+# FIXME: it doesnt apply this theme correctly.
+echo "Configuring Plymouth..."
+mkdir -p "$PROFILE_DIR/airootfs/etc/plymouth"
+cat > "$PROFILE_DIR/airootfs/etc/plymouth/plymouthd.conf" <<EOF
+[Daemon]
+Theme=katos
+ShowDelay=0
+EOF
 
 # start iso build process
 echo "Building ISO..."
